@@ -1,0 +1,458 @@
+/* ================================================================
+   PORTFOLIO STYLESHEET — a beginner's guide
+
+   This file is organized top to bottom in the SAME ORDER as the
+   sections appear in index.html. That makes it easy to find the
+   rule you're looking for: scroll the HTML, then scroll the CSS
+   to the matching numbered comment block.
+================================================================ */
+
+
+/* ============================================
+   1. RESET & BASE STYLES
+   Every browser has slightly different default
+   spacing on things like <h1> and <p>. This
+   section wipes that out so we start from a
+   clean, predictable slate.
+============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    /* box-sizing: border-box means padding and border
+       are counted INSIDE an element's width, instead of
+       being added on top of it. Without this, elements
+       with padding are wider than you expect. */
+    box-sizing: border-box;
+}
+
+:root {
+    /* CSS variables (also called "custom properties").
+       We define our colors once here, then reuse them
+       everywhere with var(--name-of-variable). Change a
+       value here and it updates EVERYWHERE it's used. */
+    --color-navy: #1B263B;   /* headings, dark text */
+    --color-bg: #F7F7F5;     /* page background */
+    --color-teal: #2A9D8F;   /* accent color: links, buttons */
+    --color-slate: #4A5568;  /* body text */
+    --color-white: #FFFFFF;  /* card backgrounds */
+    --color-border: #E5E5E3; /* light borders/dividers */
+}
+
+html {
+    /* Makes clicking a nav link (like "#about") scroll
+       smoothly to that section instead of jumping instantly. */
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: var(--color-slate);
+    background-color: var(--color-bg);
+    line-height: 1.6; /* space between lines of text — improves readability */
+}
+
+h1, h2, h3 {
+    font-family: 'Poppins', sans-serif;
+    color: var(--color-navy);
+    line-height: 1.3;
+}
+
+a {
+    text-decoration: none;
+    color: var(--color-teal);
+}
+
+img {
+    max-width: 100%;  /* images never grow wider than their container */
+    display: block;   /* removes the small gap browsers add under inline images */
+}
+
+ul {
+    list-style: none; /* removes bullet points from <ul> lists */
+}
+
+/* A reusable "container" class keeps our content from
+   stretching edge-to-edge on very wide screens. We'll
+   add this class to a <div> inside each section. */
+.container {
+    max-width: 1000px;
+    margin: 0 auto; /* auto left/right margin centers the container */
+    padding: 0 24px;
+}
+
+section {
+    padding: 80px 0;
+}
+
+
+/* ============================================
+   2. HEADER & NAVIGATION
+============================================ */
+header {
+    /* position: sticky keeps the header pinned to the
+       top of the screen even as the user scrolls down. */
+    position: sticky;
+    top: 0;
+    background-color: var(--color-white);
+    border-bottom: 1px solid var(--color-border);
+    z-index: 100; /* keeps the header above other content when scrolling */
+}
+
+nav {
+    display: flex;                  /* lays out logo + links in a row */
+    justify-content: space-between; /* pushes them to opposite ends */
+    align-items: center;            /* vertically centers them */
+    padding: 20px 24px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: var(--color-navy);
+}
+
+.nav-links {
+    display: flex; /* lays out the list items in a row instead of stacked */
+    gap: 32px;     /* space between each link */
+}
+
+.nav-links a {
+    color: var(--color-slate);
+    font-weight: 500;
+    transition: color 0.2s ease; /* smoothly animates the color change on hover */
+}
+
+.nav-links a:hover,
+.nav-links a:focus-visible {
+    color: var(--color-teal);
+}
+
+
+/* ============================================
+   3. HERO SECTION
+============================================ */
+.hero {
+    text-align: center;
+    padding: 120px 24px;
+}
+
+.hero p.eyebrow {
+    color: var(--color-teal);
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 16px;
+}
+
+.hero p.subtitle {
+    font-size: 1.2rem;
+    max-width: 500px;
+    margin: 0 auto 32px; /* centers the paragraph and adds space below it */
+}
+
+.btn {
+    display: inline-block;
+    background-color: var(--color-teal);
+    color: var(--color-white);
+    padding: 14px 32px;
+    border-radius: 6px;
+    font-weight: 600;
+    border: none;   /* buttons have a default border we don't want */
+    cursor: pointer;
+    font-size: 1rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn:hover,
+.btn:focus-visible {
+    transform: translateY(-2px); /* nudges the button up slightly */
+    box-shadow: 0 6px 16px rgba(42, 157, 143, 0.3);
+}
+
+
+/* ============================================
+   4. ABOUT SECTION (two-column layout)
+============================================ */
+.about {
+    background-color: var(--color-white);
+}
+
+.about-grid {
+    /* CSS Grid splits this container into two columns:
+       a fixed 200px column for the photo, and a second
+       column ("1fr") that stretches to fill the rest. */
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 48px;
+    align-items: center;
+}
+
+.about-photo {
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;      /* turns the square image into a circle */
+    object-fit: cover;       /* crops the photo to fill the circle without stretching it */
+    border: 3px solid var(--color-teal);
+}
+
+.about h2 {
+    font-size: 1.8rem;
+    margin-bottom: 16px;
+}
+
+
+/* ============================================
+   5. SKILLS SECTION
+============================================ */
+.skills h2 {
+    font-size: 1.8rem;
+    margin-bottom: 32px;
+    text-align: center;
+}
+
+.skills-grid {
+    display: grid;
+    /* repeat(auto-fit, minmax(140px, 1fr)) is a common
+       "responsive grid" trick: fit as many 140px-or-wider
+       columns as the screen allows, and stretch them
+       evenly to fill any leftover space. No media query
+       needed for this part! */
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 16px;
+}
+
+.skill-card {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    font-weight: 500;
+    color: var(--color-navy);
+}
+
+
+/* ============================================
+   6. PROJECTS SECTION
+============================================ */
+.projects {
+    background-color: var(--color-white);
+}
+
+.projects h2 {
+    font-size: 1.8rem;
+    margin-bottom: 32px;
+    text-align: center;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+}
+
+.project-card {
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    overflow: hidden; /* keeps the image's corners rounded to match the card */
+}
+
+.project-thumb {
+    width: 100%;
+    height: 160px;
+    object-fit: cover; /* fills the box without distorting the image */
+}
+
+.project-info {
+    padding: 20px;
+}
+
+.project-info h3 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+}
+
+.project-info a {
+    display: inline-block;
+    margin-top: 12px;
+    font-weight: 600;
+}
+
+
+/* ============================================
+   7. CONTACT / "EMAIL ME" SECTION
+============================================ */
+.contact {
+    text-align: center;
+}
+
+.contact h2 {
+    font-size: 1.8rem;
+    margin-bottom: 16px;
+}
+
+.section-intro {
+    max-width: 450px;
+    margin: 0 auto 32px;
+}
+
+/* The form itself is styled like a "card": white
+   background, soft shadow, rounded corners, and its
+   own max-width so it doesn't stretch too wide. */
+.contact-form {
+    max-width: 480px;
+    margin: 0 auto;
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 32px;
+    text-align: left; /* undoes the .contact { text-align: center } for form fields */
+    box-shadow: 0 10px 30px rgba(27, 38, 59, 0.06);
+}
+
+.contact-form .form-control {
+    margin-bottom: 20px;
+}
+
+.contact-form label {
+    display: block; /* forces the label onto its own line above the input */
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--color-navy);
+    margin-bottom: 6px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 12px 14px;
+    font-family: inherit; /* makes the input use the same font as the rest of the page */
+    font-size: 1rem;
+    color: var(--color-slate);
+    background-color: var(--color-bg);
+    border: 2px solid transparent;
+    border-radius: 8px;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.contact-form textarea {
+    resize: vertical; /* only allow resizing up/down, not sideways */
+}
+
+/* :focus applies WHILE the user is typing in a field */
+.contact-form input:focus,
+.contact-form textarea:focus {
+    outline: none; /* remove the browser's default focus ring... */
+    border-color: var(--color-teal); /* ...and replace it with our own */
+    background-color: var(--color-white);
+}
+
+.contact-form button {
+    width: 100%;
+}
+
+.mailto-fallback {
+    margin-top: 24px;
+    font-size: 0.95rem;
+    color: var(--color-slate);
+}
+
+
+/* ============================================
+   8. FOOTER
+============================================ */
+footer {
+    text-align: center;
+    padding: 32px 24px;
+    color: var(--color-slate);
+    font-size: 0.9rem;
+}
+
+
+/* ================================================================
+   9. RESPONSIVE STYLES
+
+   HOW MEDIA QUERIES WORK:
+   Everything above this line applies to ALL screen sizes.
+   A media query says "only apply these extra rules WHEN the
+   browser window is at or below a certain width." We stack
+   two breakpoints — tablet, then phone — so the layout adjusts
+   gradually as the screen gets smaller, instead of jumping
+   straight from desktop to phone. This is called
+   "mobile-first thinking" even though we wrote desktop styles
+   first for teaching clarity.
+================================================================ */
+
+/* ---------- Tablets and small laptops (≤ 900px) ---------- */
+@media (max-width: 900px) {
+    .hero {
+        padding: 90px 24px;
+    }
+
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    section {
+        padding: 64px 0;
+    }
+}
+
+/* ---------- Phones and narrow tablets (≤ 640px) ---------- */
+@media (max-width: 640px) {
+
+    /* Stack the nav links under the logo instead of side by side,
+       since there isn't room for a horizontal row anymore. */
+    nav {
+        flex-direction: column;
+        gap: 12px;
+        padding: 16px;
+    }
+
+    .nav-links {
+        gap: 16px;
+        font-size: 0.9rem;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .hero p.subtitle {
+        font-size: 1rem;
+    }
+
+    /* The about section's two columns (photo + text)
+       become one column, stacked, on small screens. */
+    .about-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+        justify-items: center; /* centers the circular photo */
+    }
+
+    section {
+        padding: 48px 0;
+    }
+
+    .contact-form {
+        padding: 24px;
+    }
+}
+
+/* ---------- Very small phones (≤ 380px) ---------- */
+@media (max-width: 380px) {
+    .hero h1 {
+        font-size: 1.7rem;
+    }
+
+    .btn {
+        padding: 12px 24px;
+        font-size: 0.95rem;
+    }
+}
